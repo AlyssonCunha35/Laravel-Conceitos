@@ -23,7 +23,7 @@ class StoreUpdateUserFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:255|min:3',
             'email' => [
                 'required',
@@ -36,5 +36,17 @@ class StoreUpdateUserFormRequest extends FormRequest
                 'max:10'
             ]
         ];
+
+        //Regras de Update
+
+        if ($this->method('PUT')) {
+            $rules['password'] = [
+                'nullable',
+                'min:60',
+                'max:10'
+            ];
+        }
+
+        return $rules;
     }
 }
