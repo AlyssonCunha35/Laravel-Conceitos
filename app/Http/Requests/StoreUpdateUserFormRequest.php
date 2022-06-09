@@ -36,7 +36,8 @@ class StoreUpdateUserFormRequest extends FormRequest
                 'required',
                 'min:6',
                 'max:10'
-            ]
+            ],
+            'sexo' => 'required'
         ];
 
         //Regras de Update
