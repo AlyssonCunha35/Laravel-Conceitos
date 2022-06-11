@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Listagem dos Usuários')
+@section('title', "Comentários do Usuário {$user->name}")
 
 @section('container')
 <h1 class="text-2xl font-semibold leading-tigh py-2">
-    Listagem dos usuários
+    Comentários do {{$user->name}}
     <a href="{{ route('users.create') }}" class="px-4">
         <i class="fa-solid fa-user-plus"></i>
     </a>
@@ -21,53 +21,32 @@
         <tr>
             <th
                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Nome
+                Comentário
             </th>
             <th
                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                E-mail
-            </th>
-            <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Editar
-            </th>
-            <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Detalhes
-            </th>
-            <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Comentários
+                Visível
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($users as $user)
+        @foreach ($comments as $comment)
         <tr>
-<td class="px-5 w-1/6 py-5 border-b border-gray-200 bg-white text-sm">
-                @if ($user->image)
-                <img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}" class="object-cover w-20">
-@elseif ($user->sexo == "M")
-<img src="{{ url("images/male.png") }}" alt="{{ $user->name }}" class="object-cover w-20">
-                @else
-<img src="{{ url("images/female.png") }}" alt="{{ $user->name }}" class="object-cover w-20">
-                @endif
-                {{ $user->name }}
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $user->email }}</td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $comment->body }}</td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $comment->visible }}</td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <a href="{{ route('users.edit', $user->id) }}" class="bg-green-200 rounded-full py-2 px-6">Editar</a>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <a href="{{ route('users.show', $user->id) }}" class="bg-orange-200 rounded-full py-2 px-6">Detalhes</a>
             </td>
-<td class="px-5 py-5 border-b border-blue-200 bg-white text-sm">
-                <a href="{{ route('comments.index') }}" class="bg-blue-200 rounded-full py-2 px-6">Anotações
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <a href="{{ route('users.comments.index') }}" class="bg-blue-200 rounded-full py-2 px-6">Anotações
                     {{-- ({{ $user->comments->count() }})</a> --}}
             </td>
         </tr>
-    @endforeach
-</tbody>
+        @endforeach
+    </tbody>
 </table>
 
 {{-- <div class="py-4">
